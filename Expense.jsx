@@ -6,7 +6,7 @@ Expense = React.createClass({
     const { timestamp, description, amount, comment } = this.props.expense;
     return (
       <li>
-        {timestamp}, {description}, {amount}, {comment}
+        {timestamp.toString()}, {description}, {amount}, {comment}
       </li>
     );
   }

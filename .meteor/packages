@@ -25,3 +25,4 @@ fixtures
 aldeed:simple-schema
 sanjo:jasmine
 velocity:html-reporter
+aldeed:collection2

@@ -1,5 +1,4 @@
 Expenses = new Mongo.Collection("expenses");
-
 Expenses.schema = new SimpleSchema({
   timestamp: {
     type: Date,
@@ -23,6 +22,7 @@ Expenses.schema = new SimpleSchema({
     max: 1000
   }
 });
+Expenses.attachSchema(Expenses.schema);
 
 // Populate from fixtures if initially empty
 if (Expenses.find({}).count() == 0) {
