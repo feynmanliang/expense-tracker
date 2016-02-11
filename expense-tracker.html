@@ -20,35 +20,30 @@
 <template name="expenseList">
   {{> insertExpenseForm}}
   <ul>
-    {{#each expenses}}
-    {{> expense}}
-    {{/each}}
+    {{> tabular table=TabularTables.Expenses class="table table-striped table-bordered table-condensed"}}
   </ul>
-</template>
-
-<template name="expense">
-  <li>
-    <a href="./expense/{{_id}}">
-      {{timestamp}} {{description}} {{amount}} {{comment}}
-    </a>
-  </li>
 </template>
 
 <template name="insertExpenseForm">
   {{> quickForm collection="Expenses" id="insertExpenseForm" type="insert"}}
 </template>
 
+<template name="updateExpenseCell">
+  <button type="button" class="btn btn-xs update">Update</button>
+</template>
+
 <template name="updateExpenseForm">
   {{> quickForm collection="Expenses" doc=expenseData id="updateExpenseForm" type="update"}}
 </template>
 
+<template name="deleteExpenseCell">
+  <button type="button" class="btn btn-xs delete">Delete</button>
+</template>
+
 <template name="report">
-  <h2>Expense Report</h2>
-  Week -- Total -- Avg/Day
+  <h2>Weekly Expense Report</h2>
   <ul>
-    {{#each reportData}}
-    {{> reportLine}}
-    {{/each}}
+    {{> tabular table=TabularTables.WeeklyReport class="table table-striped table-bordered table-condensed"}}
   </ul>
 </template>
 

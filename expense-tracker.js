@@ -18,37 +18,83 @@ if (Meteor.isClient) {
     },
   })
 
-  Template.report.helpers({
-    reportData: function() {
-      const expenses = Expenses.find({}).fetch();
-      const grouped = _(expenses).groupBy(function(exp) {
-        return moment(exp.timestamp).year().toString() + " " + moment(exp.timestamp).week().toString();
-      })
-      const byWeek = _.map(_.pairs(grouped), function(line) {
-        return {
-          year: line[0].split(" ")[0],
-          week: line[0].split(" ")[1],
-          expenses: line[1]
-        };
-      });
-      const weeklyStats = _(byWeek).map(function(weekData) {
-        const stats = _(weekData.expenses).reduce(function(acc, x) {
-          return {
-            sum: acc.sum + x.amount,
-            count: acc.count + 1
-          };
-        }, { sum: 0, count: 0 })
-        const { year, week } = weekData;
-        const { sum, count } = stats;
-        return {
-          year,
-          week,
-          total: sum,
-          perDayAverage: sum / count
-        };
-      });
-      console.log(weeklyStats)
-      return weeklyStats;
+  Template.updateExpenseCell.events({
+    'click .update': function () {
+      FlowRouter.go('/expense/' + this._id);
     }
-  })
+  });
+
+  Template.deleteExpenseCell.events({
+    'click .delete': function () {
+      Expenses.remove(this._id);
+    }
+  });
 }
+
+WeeklyReport = new Mongo.Collection('weeklyReport');
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    makeWeeklyReportData: function() {
+      WeeklyReport.remove({}); // clear old reports
+
+      // generate and add new ones
+      const agg = Expenses.aggregate([
+        {$group: {
+          _id: {
+            year: {$year: "$timestamp"},
+            week: {$week: "$timestamp"},
+          },
+          total: { $sum: "$amount" },
+          avg: { $avg: "$amount" }
+        }}
+      ]);
+      const byWeek = _(agg).map(stats => {
+        return {
+          ...stats,
+          ...stats._id,
+          _id: stats._id.year + '-' + stats._id.week
+        };
+      });
+      _(byWeek).forEach((week) => WeeklyReport.upsert(week._id, week));
+    },
+  });
+}
+
+TabularTables = {};
+
+TabularTables.WeeklyReport = new Tabular.Table({
+  name: "WeeklyReport",
+  collection: WeeklyReport,
+  columns: [
+    {data: "year", title: "Year"},
+    {data: "week", title: "Week"},
+    {data: "total", title: "Weekly Total"},
+    {data: "avg", title: "Average Per Day"}
+  ],
+  paging: false // Bug in Tabular: can't limit (used for paging) unordered cursor
+});
+
+
+TabularTables.Expenses = new Tabular.Table({
+  name: "Expenses",
+  collection: Expenses,
+  columns: [
+    {
+      data: "timestamp",
+      title: "Date/Time",
+      render: function (val, type, doc) {
+        return moment(val).toString();
+      }
+    },
+    {data: "description", title: "Description"},
+    {data: "amount", title: "Amount"},
+    {data: "comment", title: "Comment"},
+    {
+      tmpl: Meteor.isClient && Template.updateExpenseCell
+    },
+    {
+      tmpl: Meteor.isClient && Template.deleteExpenseCell
+    }
+  ]
+});
