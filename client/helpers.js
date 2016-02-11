@@ -43,7 +43,19 @@ Template.updateUserCell.events({
   }
 });
 
+Template.deleteUserCell.events({
+  'click .delete': function () {
+    Meteor.call('deleteUser', this._id);
+  }
+});
+
 Template.updateUserForm.helpers({
+  roleOptions: function() {
+    return {
+      admin: "Admin",
+      manager: "Manager",
+    };
+  },
   userData: function() {
     return Meteor.users.findOne(FlowRouter.getParam("userId"));
   }
