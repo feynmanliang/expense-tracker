@@ -4,6 +4,7 @@ Template.expenseList.onCreated(function () {
 
 Template.insertExpenseForm.helpers({
   userId: () => Meteor.userId(),
+  now: () => moment().toDate(),
   expenseData: function() {
     return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
   },

@@ -56,9 +56,9 @@
   {{#autoForm collection="Expenses" id="insertExpenseForm" type="insert"}}
     <fieldset>
       <legend>Add an Expense</legend>
-      {{> afQuickField name='timestamp' type="datetime-local"}}
+      {{> afQuickField name='timestamp' type="datetime-local" value=now}}
       {{> afQuickField name='description'}}
-      {{> afQuickField name='amount'}}
+      {{> afQuickField name='amount' value=5.00}}
       {{> afQuickField name='comment'}}
       {{> afQuickField name='ownerId' value=userId type="hidden"}}
     </fieldset>
