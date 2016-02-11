@@ -23,3 +23,5 @@ momentjs:moment
 grigio:babel
 fixtures
 aldeed:simple-schema
+sanjo:jasmine
+velocity:html-reporter

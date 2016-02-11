@@ -3,7 +3,7 @@ Expenses = new Mongo.Collection("expenses");
 Expenses.schema = new SimpleSchema({
   timestamp: {
     type: Date,
-    label: "Date",
+    label: "Timestamp",
   },
   description: {
     type: String,
