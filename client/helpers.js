@@ -29,7 +29,7 @@ Template.updateExpenseCell.events({
 
 Template.deleteExpenseCell.events({
   'click .delete': function () {
-    Expenses.remove(this._id);
+    Meteor.call('deleteExpense', this._id);
   }
 });
 
