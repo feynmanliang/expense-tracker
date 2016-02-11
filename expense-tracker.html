@@ -13,6 +13,7 @@
 <template name="header">
   <header>
     <h1>Expense Tracker</h1>
+    <a href="/">Expenses</a> -- <a href="/report">Report</a>
   </header>
 </template>
 
@@ -39,4 +40,10 @@
 
 <template name="updateExpenseForm">
   {{> quickForm collection="Expenses" doc=expenseData id="updateExpenseForm" type="update"}}
+</template>
+
+<template name="report">
+  <h2>Expense Report</h2>
+  Week -- Total -- Avg/Day
+  {{reportData}}
 </template>

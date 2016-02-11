@@ -15,6 +15,37 @@ if (Meteor.isClient) {
   Template.updateExpenseForm.helpers({
     expenseData: function() {
       return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
-    }
+    },
+  })
+
+  Template.report.helpers({
+    reportData: function() {
+      if (Reports.find().count() == 0) {
+        Meteor.call('makeReportData', function(err,res) {
+          Reports.insert(res);
+        });
+      }
+      return Reports.findOne();
+    },
   })
 }
+
+Reports = new Mongo.Collection(null);
+
+if(Meteor.isServer) {
+   Meteor.methods({
+     makeReportData: function() {
+       const reportData = Expenses.aggregate([
+         {$group: {
+           _id: {
+             week: { $week: "$timestamp" }
+           },
+           total: { $sum: "$amount" },
+           perDayAverage: { $avg: "$amount" }
+         }}
+       ]);
+       return reportData;
+     }
+   });
+}
+
