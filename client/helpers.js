@@ -1,5 +1,5 @@
-Template.expenseList.helpers({
-  expenses: () => Expenses.find({}),
+Template.expenseList.onCreated(function () {
+  this.subscribe("Users")
 })
 
 Template.insertExpenseForm.helpers({
@@ -16,6 +16,10 @@ Template.updateExpenseForm.helpers({
   },
 })
 
+Template.updateExpenseForm.onCreated(function () {
+  this.subscribe("Expenses")
+})
+
 Template.updateExpenseCell.events({
   'click .update': function () {
     FlowRouter.go('/expense/' + this._id);
@@ -28,6 +32,10 @@ Template.deleteExpenseCell.events({
   }
 });
 
+Template.report.onCreated(function () {
+  this.subscribe("WeeklyReport")
+})
+
 Template.updateUserCell.events({
   'click .update': function () {
     FlowRouter.go('/users/' + this._id);
@@ -39,3 +47,11 @@ Template.updateUserForm.helpers({
     return Meteor.users.findOne(FlowRouter.getParam("userId"));
   }
 });
+
+Template.userList.onCreated(function () {
+  this.subscribe("Users")
+})
+
+Template.updateUserForm.onCreated(function () {
+  this.subscribe("Users")
+})

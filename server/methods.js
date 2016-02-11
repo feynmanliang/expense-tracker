@@ -4,6 +4,9 @@ Meteor.methods({
 
     // generate and add new ones
     const agg = Expenses.aggregate([
+      {$match: {
+        ownerId: Meteor.userId()
+      }},
       {$group: {
         _id: {
           year: {$year: "$timestamp"},
