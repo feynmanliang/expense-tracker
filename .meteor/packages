@@ -32,3 +32,5 @@ meteorhacks:aggregate
 aldeed:tabular
 accounts-ui
 accounts-password
+alanning:roles
+dburles:collection-helpers
