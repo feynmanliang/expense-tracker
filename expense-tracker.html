@@ -13,8 +13,12 @@
 <template name="header">
   <header>
     <h1>Expense Tracker</h1>
-    <a href="/">Expenses</a> -- <a href="/report">Report</a> -- {{> loginButtons}}
+    <a href="/">Expenses</a> -- <a href="/report">Report</a> -- <a href="/users">Users</a> -- {{> loginButtons}}
   </header>
+</template>
+
+<template name="userList">
+  {{> tabular table=TabularTables.Users class="table table-striped table-bordered table-condensed"}}
 </template>
 
 <template name="expenseList">
@@ -59,4 +63,17 @@
 
 <template name="reportLine">
   <li>{{year}} -- {{week}} -- {{total}} -- {{perDayAverage}}</li>
+</template>
+
+
+<template name="updateUserCell">
+  <button type="button" class="btn btn-xs update">Update</button>
+</template>
+
+<template name="updateUserForm">
+  {{> quickForm collection="Meteor.users" doc=userData id="updateUserForm" type="update"}}
+</template>
+
+<template name="deleteUserCell">
+  <button type="button" class="btn btn-xs delete">Delete</button>
 </template>
