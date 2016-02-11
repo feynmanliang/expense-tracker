@@ -12,7 +12,15 @@ if (Meteor.isClient) {
     expenses: () => Expenses.find({}),
   })
 
+  Template.insertExpenseForm.helpers({
+    userId: () => Meteor.userId(),
+    expenseData: function() {
+      return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
+    },
+  })
+
   Template.updateExpenseForm.helpers({
+    userId: () => Meteor.userId(),
     expenseData: function() {
       return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
     },
@@ -80,6 +88,7 @@ TabularTables.Expenses = new Tabular.Table({
   name: "Expenses",
   collection: Expenses,
   columns: [
+    {data: "ownerId", title: "Owner"},
     {
       data: "timestamp",
       title: "Date/Time",
@@ -98,3 +107,4 @@ TabularTables.Expenses = new Tabular.Table({
     }
   ]
 });
+

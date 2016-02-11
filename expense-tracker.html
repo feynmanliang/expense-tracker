@@ -13,7 +13,7 @@
 <template name="header">
   <header>
     <h1>Expense Tracker</h1>
-    <a href="/">Expenses</a> -- <a href="/report">Report</a>
+    <a href="/">Expenses</a> -- <a href="/report">Report</a> -- {{> loginButtons}}
   </header>
 </template>
 
@@ -25,7 +25,17 @@
 </template>
 
 <template name="insertExpenseForm">
-  {{> quickForm collection="Expenses" id="insertExpenseForm" type="insert"}}
+  {{#autoForm collection="Expenses" id="insertExpenseForm" type="insert"}}
+    <fieldset>
+      <legend>Add an Expense</legend>
+      {{> afQuickField name='timestamp' type="datetime-local"}}
+      {{> afQuickField name='description'}}
+      {{> afQuickField name='amount'}}
+      {{> afQuickField name='comment'}}
+      {{> afQuickField name='ownerId' value=userId type="hidden"}}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Insert</button>
+  {{/autoForm}}
 </template>
 
 <template name="updateExpenseCell">

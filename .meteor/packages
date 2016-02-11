@@ -30,3 +30,5 @@ kadira:flow-router
 kadira:blaze-layout
 meteorhacks:aggregate
 aldeed:tabular
+accounts-ui
+accounts-password
