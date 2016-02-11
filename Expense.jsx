@@ -3,8 +3,11 @@ Expense = React.createClass({
     expense: React.PropTypes.object.isRequired
   },
   render() {
+    const { timestamp, description, amount, comment } = this.props.expense;
     return (
-      <li>{this.props.expense.text}</li>
+      <li>
+        {timestamp}, {description}, {amount}, {comment}
+      </li>
     );
   }
 });
