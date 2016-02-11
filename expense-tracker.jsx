@@ -1,5 +1,5 @@
 Expenses = new Mongo.Collection("expenses");
-// Define the schema
+
 Expenses.schema = new SimpleSchema({
   timestamp: {
     type: Date,
@@ -27,7 +27,8 @@ Expenses.schema = new SimpleSchema({
 // Populate from fixtures if initially empty
 if (Expenses.find({}).count() == 0) {
   _.each(Fixtures.expenses, (expense) => {
-    Expenses.insert(expense)
+    const expenseClean = Expenses.schema.clean(expense)
+    Expenses.insert(expenseClean)
   })
 }
 
