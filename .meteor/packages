@@ -18,7 +18,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
-react
 momentjs:moment
 grigio:babel
 fixtures
@@ -26,3 +25,4 @@ aldeed:simple-schema
 sanjo:jasmine
 velocity:html-reporter
 aldeed:collection2
+aldeed:autoform

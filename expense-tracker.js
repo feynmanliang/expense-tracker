@@ -34,7 +34,9 @@ if (Expenses.find({}).count() == 0) {
 
 
 if (Meteor.isClient) {
+  Template.body.helpers({
+    expenses: () => Expenses.find({}),
+  });
   Meteor.startup(function() {
-    React.render(<App />, document.getElementById("app"));
   })
 }

@@ -3,5 +3,27 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div class="container">
+    <header>
+      <h1>Expenses</h1>
+      {{> insertExpenseForm}}
+    </header>
+    <ul>
+      {{#each expenses}}
+        {{> expense}}
+      {{/each}}
+    </ul>
+  </div>
 </body>
+
+<template name="expense">
+  <li>{{timestamp}} {{description}} {{amount}} {{comment}}</li>
+</template>
+
+<template name="insertExpenseForm">
+  {{> quickForm collection="Expenses" id="insertExpenseForm" type="insert"}}
+</template>
+
+<template name="updateExpenseForm">
+  {{> quickForm collection="Expenses" doc=this id="updateExpenseForm" type="update"}}
+</template>
