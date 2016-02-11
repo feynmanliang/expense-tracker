@@ -45,5 +45,13 @@
 <template name="report">
   <h2>Expense Report</h2>
   Week -- Total -- Avg/Day
-  {{reportData}}
+  <ul>
+    {{#each reportData}}
+    {{> reportLine}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="reportLine">
+  <li>{{year}} -- {{week}} -- {{total}} -- {{perDayAverage}}</li>
 </template>

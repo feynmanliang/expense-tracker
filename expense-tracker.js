@@ -20,32 +20,35 @@ if (Meteor.isClient) {
 
   Template.report.helpers({
     reportData: function() {
-      if (Reports.find().count() == 0) {
-        Meteor.call('makeReportData', function(err,res) {
-          Reports.insert(res);
-        });
-      }
-      return Reports.findOne();
-    },
+      const expenses = Expenses.find({}).fetch();
+      const grouped = _(expenses).groupBy(function(exp) {
+        return moment(exp.timestamp).year().toString() + " " + moment(exp.timestamp).week().toString();
+      })
+      const byWeek = _.map(_.pairs(grouped), function(line) {
+        return {
+          year: line[0].split(" ")[0],
+          week: line[0].split(" ")[1],
+          expenses: line[1]
+        };
+      });
+      const weeklyStats = _(byWeek).map(function(weekData) {
+        const stats = _(weekData.expenses).reduce(function(acc, x) {
+          return {
+            sum: acc.sum + x.amount,
+            count: acc.count + 1
+          };
+        }, { sum: 0, count: 0 })
+        const { year, week } = weekData;
+        const { sum, count } = stats;
+        return {
+          year,
+          week,
+          total: sum,
+          perDayAverage: sum / count
+        };
+      });
+      console.log(weeklyStats)
+      return weeklyStats;
+    }
   })
 }
-
-Reports = new Mongo.Collection(null);
-
-if(Meteor.isServer) {
-   Meteor.methods({
-     makeReportData: function() {
-       const reportData = Expenses.aggregate([
-         {$group: {
-           _id: {
-             week: { $week: "$timestamp" }
-           },
-           total: { $sum: "$amount" },
-           perDayAverage: { $avg: "$amount" }
-         }}
-       ]);
-       return reportData;
-     }
-   });
-}
-
