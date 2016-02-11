@@ -3,21 +3,34 @@
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <h1>Expenses</h1>
-      {{> insertExpenseForm}}
-    </header>
-    <ul>
-      {{#each expenses}}
-        {{> expense}}
-      {{/each}}
-    </ul>
-  </div>
 </body>
 
+<template name="layout1">
+  {{> Template.dynamic template=top}}
+  {{> Template.dynamic template=main}}
+</template>
+
+<template name="header">
+  <header>
+    <h1>Expense Tracker</h1>
+  </header>
+</template>
+
+<template name="expenseList">
+  {{> insertExpenseForm}}
+  <ul>
+    {{#each expenses}}
+    {{> expense}}
+    {{/each}}
+  </ul>
+</template>
+
 <template name="expense">
-  <li>{{timestamp}} {{description}} {{amount}} {{comment}}</li>
+  <li>
+    <a href="./expense/{{_id}}">
+      {{timestamp}} {{description}} {{amount}} {{comment}}
+    </a>
+  </li>
 </template>
 
 <template name="insertExpenseForm">
@@ -25,5 +38,5 @@
 </template>
 
 <template name="updateExpenseForm">
-  {{> quickForm collection="Expenses" doc=this id="updateExpenseForm" type="update"}}
+  {{> quickForm collection="Expenses" doc=expenseData id="updateExpenseForm" type="update"}}
 </template>

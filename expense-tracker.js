@@ -1,29 +1,3 @@
-Expenses = new Mongo.Collection("expenses");
-Expenses.schema = new SimpleSchema({
-  timestamp: {
-    type: Date,
-    label: "Timestamp",
-  },
-  description: {
-    type: String,
-    label: "Description",
-    max: 200
-  },
-  amount: {
-    type: Number,
-    label: "Amount",
-    decimal: true,
-    min: 0
-  },
-  comment: {
-    type: String,
-    label: "Comment",
-    optional: true,
-    max: 1000
-  }
-});
-Expenses.attachSchema(Expenses.schema);
-
 // Populate from fixtures if initially empty
 if (Expenses.find({}).count() == 0) {
   _.each(Fixtures.expenses, (expense) => {
@@ -34,9 +8,13 @@ if (Expenses.find({}).count() == 0) {
 
 
 if (Meteor.isClient) {
-  Template.body.helpers({
+  Template.expenseList.helpers({
     expenses: () => Expenses.find({}),
-  });
-  Meteor.startup(function() {
+  })
+
+  Template.updateExpenseForm.helpers({
+    expenseData: function() {
+      return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
+    }
   })
 }
