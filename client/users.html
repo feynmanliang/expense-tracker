@@ -9,14 +9,21 @@
 </template>
 
 <template name="updateUserForm">
-  {{#autoForm collection="Meteor.users" doc=userData id="updateUserForm" type="update"}}
-    <fieldset>
-      <legend>Update a User</legend>
-      {{> afQuickField name='username'}}
-      {{> afQuickField name='roles' options=roleOptions}}
-    </fieldset>
-    <button type="submit" class="btn btn-primary">Update</button>
-  {{/autoForm}}
+  <div class="col-md-4">
+    {{#autoForm
+      collection="Meteor.users"
+      doc=userData
+      id="updateUserForm"
+      type="method-update"
+      meteormethod="updateUser"}}
+      <fieldset>
+        <legend>Update a User</legend>
+        {{> afQuickField name='username'}}
+        {{> afQuickField name='roles' options=roleOptions}}
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Update</button>
+    {{/autoForm}}
+  </div>
 </template>
 
 <template name="deleteUserCell">

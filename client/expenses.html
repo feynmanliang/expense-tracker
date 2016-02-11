@@ -8,7 +8,7 @@
 </template>
 
 <template name="insertExpenseForm">
-  {{#autoForm collection="Expenses" id="insertExpenseForm" type="insert"}}
+  {{#autoForm collection="Expenses" id="insertExpenseForm" type="method" meteormethod="createExpense"}}
     <fieldset>
       <legend>Add an Expense</legend>
       {{> afQuickField name='timestamp' type="datetime-local" value=now}}
@@ -26,7 +26,23 @@
 </template>
 
 <template name="updateExpenseForm">
-  {{> quickForm collection="Expenses" doc=expenseData id="updateExpenseForm" type="update"}}
+  <div class="col-md-4">
+    {{#autoForm
+      collection="Expenses"
+      doc=expenseData
+      id="updateExpenseForm"
+      type="method-update"
+      meteormethod="updateExpense"}}
+      <fieldset>
+        <legend>Update an Expense</legend>
+        {{> afQuickField name='timestamp' type="datetime-local"}}
+        {{> afQuickField name='description'}}
+        {{> afQuickField name='amount'}}
+        {{> afQuickField name='comment'}}
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Insert</button>
+    {{/autoForm}}
+  </div>
 </template>
 
 <template name="deleteExpenseCell">
