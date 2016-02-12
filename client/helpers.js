@@ -2,13 +2,31 @@ Template.expenseList.onCreated(function () {
   this.subscribe("Users")
 })
 
-Template.insertExpenseForm.helpers({
+Template.expenseList.events({
+  'click .create': function(e) {
+    e.preventDefault();
+    FlowRouter.go('/expense/new');
+  },
+});
+
+Template.createExpenseForm.helpers({
   userId: () => Meteor.userId(),
   now: () => moment().toDate(),
-  expenseData: function() {
-    return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
-  },
 })
+
+Template.createExpenseForm.events({
+  'click .cancel': function(e) {
+    e.preventDefault();
+    FlowRouter.go('/expense');
+  }
+});
+
+Template.updateExpenseForm.events({
+  'click .cancel': function(e) {
+    e.preventDefault();
+    FlowRouter.go('/expense');
+  }
+});
 
 Template.updateExpenseForm.helpers({
   userId: () => Meteor.userId(),
@@ -39,13 +57,20 @@ Template.report.onCreated(function () {
 
 Template.updateUserCell.events({
   'click .update': function () {
-    FlowRouter.go('/users/' + this._id);
+    FlowRouter.go('/user' + this._id);
   }
 });
 
 Template.deleteUserCell.events({
   'click .delete': function () {
     Meteor.call('deleteUser', this._id);
+  }
+});
+
+Template.updateUserForm.events({
+  'click .cancel': function(e) {
+    e.preventDefault();
+    FlowRouter.go('/user');
   }
 });
 

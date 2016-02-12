@@ -1,23 +1,24 @@
 <template name="expenseList">
-  <div class="col-md-4">
-    {{> insertExpenseForm}}
+  <div class="row">
+    <button type="button" class="btn btn-primary create">Create an Expense</button>
   </div>
-  <div class="col-md-8">
+  <div class="row">
     {{> tabular table=TabularTables.Expenses class="table table-striped table-bordered table-condensed"}}
   </div>
 </template>
 
-<template name="insertExpenseForm">
-  {{#autoForm collection="Expenses" id="insertExpenseForm" type="method" meteormethod="createExpense"}}
+<template name="createExpenseForm">
+  {{#autoForm collection="Expenses" id="createExpenseForm" type="method" meteormethod="createExpense"}}
     <fieldset>
       <legend>Add an Expense</legend>
       {{> afQuickField name='timestamp' type="datetime-local" value=now}}
-      {{> afQuickField name='description'}}
-      {{> afQuickField name='amount' value=5.00}}
-      {{> afQuickField name='comment'}}
+      {{> afQuickField name='description' rows=2 placeholder="Enter a description"}}
+      {{> afQuickField name='amount' placeholder="Enter an amount (up to two decimal places)"}}
+      {{> afQuickField name='comment' rows=2 placeholder="Enter a comment (optional)"}}
       {{> afQuickField name='ownerId' value=userId type="hidden"}}
     </fieldset>
-    <button type="submit" class="btn btn-primary">Insert</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="cancel" class="btn cancel">Close</button>
   {{/autoForm}}
 </template>
 
@@ -26,26 +27,25 @@
 </template>
 
 <template name="updateExpenseForm">
-  <div class="col-md-4">
-    {{#autoForm
-      collection="Expenses"
-      doc=expenseData
-      id="updateExpenseForm"
-      type="method-update"
-      meteormethod="updateExpense"}}
-      <fieldset>
-        <legend>Update an Expense</legend>
-        {{> afQuickField name='timestamp' type="datetime-local"}}
-        {{> afQuickField name='description'}}
-        {{> afQuickField name='amount'}}
-        {{> afQuickField name='comment'}}
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Insert</button>
-    {{/autoForm}}
-  </div>
+  {{#autoForm
+    collection="Expenses"
+    doc=expenseData
+    id="updateExpenseForm"
+    type="method-update"
+    meteormethod="updateExpense"}}
+    <fieldset>
+      <legend>Update an Expense</legend>
+      {{> afQuickField name='timestamp' type="datetime-local"}}
+      {{> afQuickField name='description' rows=2}}
+      {{> afQuickField name='amount'}}
+      {{> afQuickField name='comment' rows=2}}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="cancel" class="btn cancel">Close</button>
+  {{/autoForm}}
 </template>
 
 <template name="deleteExpenseCell">
-  <button type="button" class="btn btn-xs delete">Delete</button>
+  <button type="button" class="btn btn-xs btn-danger delete">Delete</button>
 </template>
 

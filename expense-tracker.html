@@ -6,9 +6,23 @@
 </body>
 
 <template name="mainLayout">
-  {{> Template.dynamic template=top}}
+  {{> header}}
   <div class="container">
-    {{> Template.dynamic template=main}}
+    <div class="col-md-4">
+      {{> Template.dynamic template=left}}
+    </div>
+    <div class="col-md-8">
+      {{> Template.dynamic template=main}}
+    </div>
+  </div>
+</template>
+
+<template name="fullLayout">
+  {{> header}}
+  <div class="container">
+    <div class="col-md-12">
+      {{> Template.dynamic template=main}}
+    </div>
   </div>
 </template>
 
@@ -24,15 +38,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">ExpenseTracker</a>
+            <a class="navbar-brand" href="/">ExpenseTracker</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="/">Expenses</a></li>
-              <li><a href="/report">Weekly Report</a></li>
-              <li><a href="/users">Manage Users</a></li>
+              {{#if currentUser}}
+                <li><a href="/">Expenses</a></li>
+                <li><a href="/report">Weekly Report</a></li>
+                <li><a href="/users">Manage Users</a></li>
+              {{/if}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {{> loginButtons}}
@@ -43,3 +59,13 @@
   </header>
 </template>
 
+<template name="welcome">
+  <div class="jumbotron">
+    {{#if currentUser}}
+      <h1>Welcome back, {{currentUser.username}}.</h1>
+    {{else}}
+      <h1>Welcome.</h1>
+      <p>Please login in to continue.</p>
+    {{/if}}
+  </div>
+</template>
