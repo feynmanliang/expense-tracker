@@ -1,0 +1,7 @@
+* Redirect to root on sign out
+* Custom sign-on page (WONT DO, violates single-page universal nav)
+* WeeklyReport in unpersisted collection
+* Plots for WeeklyReport
+  * Let aggregation window be arbitrary (dailyReports, hourlyReports)
+  * Fold over repeated data (e.g. data per day of week) or distinguish (current impl, data per unique day/week)
+* BETTER UNIT AND INTEGRATION TESTS
