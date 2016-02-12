@@ -45,9 +45,11 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               {{#if currentUser}}
-                <li><a href="/">Expenses</a></li>
+                <li><a href="/expenses">Expenses</a></li>
                 <li><a href="/report">Weekly Report</a></li>
+                {{#if canManageUsers}}
                 <li><a href="/users">Manage Users</a></li>
+                {{/if}}
               {{/if}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
