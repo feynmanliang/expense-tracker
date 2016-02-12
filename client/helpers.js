@@ -1,9 +1,3 @@
-Template.header.helpers({
-  canManageUsers: function() {
-    return Meteor.user() && Roles.userIsInRole(Meteor.userId(), ['admin', 'manager']);
-  }
-});
-
 Template.expenseList.onCreated(function () {
   this.subscribe("Users")
 })
