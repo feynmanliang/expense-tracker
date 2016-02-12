@@ -1,14 +1,11 @@
 describe("Expenses", () => {
-  var validExpense;
-  beforeAll(() => {
-    validExpense = {
-      timestamp: new Date(),
-      description: "This is an expense",
-      amount: 1.01,
-      comment: "This is a comment",
-      ownerId: Random.id(),
-    };
-  });
+  const validExpense = {
+    timestamp: new Date(),
+    description: "This is an expense",
+    amount: 1.01,
+    comment: "This is a comment",
+    ownerId: Random.id(),
+  };
 
   describe("validation", () => {
     it("validates a correct expense", () => {
@@ -41,18 +38,12 @@ describe("Expenses", () => {
   });
 
   describe("CRUD", () => {
-    let validExpense;
-    beforeAll(() => {
-      validExpense = {
-        timestamp: new Date(),
-        description: "This is valid",
-        amount: 1.01,
+    const validExpense = {
+      timestamp: new Date(),
+      description: "This is valid",
+      amount: 1.01,
       ownerId: Random.id(),
-      };
-    });
-    afterAll(() => {
-      validExpense = undefined;
-    });
+    };
 
     describe("create", () => {
       it("succeeds with valid expenses", (done) => {

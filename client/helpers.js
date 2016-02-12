@@ -10,7 +10,6 @@ Template.expenseList.events({
 });
 
 Template.createExpenseForm.helpers({
-  userId: () => Meteor.userId(),
   now: () => moment().toDate(),
 })
 

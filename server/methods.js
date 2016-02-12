@@ -28,7 +28,10 @@ Meteor.methods({
 
   createExpense: function(exp) {
     if (Meteor.user()) {
-      Expenses.insert(exp);
+      return Expenses.insert({
+        ...exp,
+        ownerId: Meteor.userId()
+      });
     } else {
       throw new Meteor.Error(403, "Access denied");
     }
