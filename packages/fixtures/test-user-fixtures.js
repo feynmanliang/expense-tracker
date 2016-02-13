@@ -1,4 +1,4 @@
-function createUser(name, pass) {
+function createUserEntry(name, pass) {
   User = {}
   User.login = function(callback) {
     if (!Meteor.user()) {
@@ -21,7 +21,7 @@ function createUser(name, pass) {
 }
 
 TestUsers = {
-  admin: createUser('admin', 'asdf'),
-  manager: createUser('man', 'asdf'),
-  user: createUser('user', 'asdf'),
+  admin: createUserEntry('admin', 'admin'),
+  manager: createUserEntry('manager', 'manager'),
+  user: createUserEntry('user', 'user'),
 }
