@@ -7,18 +7,22 @@ describe ("the welcome page", () => {
     it("should include the text 'Please log in'", (done) => {
       Meteor.logout((eer) => {
         FlowRouter.go('/');
-        expect($('.jumbotron p').text()).toContain('Please login');
-        done()
+        Meteor.setTimeout(() => {
+          expect($('.jumbotron p').text()).toContain('Please login');
+          done()
+        }, 400);
       })
     });
 
     it("should not have navbar links", (done) => {
       Meteor.logout((eer) => {
         FlowRouter.go('/');
-        expect(
-          $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
-        ).toEqual(0);
-        done()
+        Meteor.setTimeout(() => {
+          expect(
+            $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
+          ).toEqual(0);
+          done()
+        }, 400);
       })
     });
   });
