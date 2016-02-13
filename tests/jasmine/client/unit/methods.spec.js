@@ -1,3 +1,5 @@
+"use strict";
+
 describe("createExpense", () => {
   const validExpense = {
     timestamp: new Date(),
@@ -10,6 +12,7 @@ describe("createExpense", () => {
     if (Meteor.user()) Meteor.logout();
     Meteor.call("createExpense", validExpense, (err, res) => {
       expect(res).toBeFalsy();
+      done();
     })
   })
 
@@ -29,7 +32,44 @@ describe("updateExpense", () => {
     timestamp: new Date(),
     description: "This is an expense",
     amount: 1.01,
-    comment: "This is a comment",
-    ownerId: Random.id(),
+    comment: "This is a comment"
+  }
+  const validModifier = {
+    description: "New expense description"
+  }
+
+  let expenseId;
+  it("fails if user is not logged in", (done) => {
+    Package.fixtures.TestUsers.user.login();
+    expenseId = Meteor.call("createExpense", validExpense);
+    Package.fixtures.TestUsers.user.logout();
+    Meteor.call("updateExpense", validModifier, (err, res) => {
+      expect(err).toBeTruthy();
+      expect(res).toBeFalsy();
+      done();
+    })
+    Meteor.call("deleteExpense", expenseId);
+  })
+
+  for (let role of ['user', 'manager', 'admin']) {
+    describe("as an " + role, () => {
+      Package.fixtures.TestUsers[role].login();
+      expenseId = Meteor.call("createExpense", validExpense);
+      it("updates own expense", (done) => {
+        Meteor.call("createExpense", validExpense, (err, res) => {
+          expect(res).toBeTruthy();
+          done();
+        })
+      });
+
+      if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+        it("does not update other user's expenses", (done) => {
+        })
+      } else {
+        it("can edit other user's expenses", () => {
+        })
+      }
+      Package.fixtures.TestUsers[role].logout();
+    })
   }
 })
