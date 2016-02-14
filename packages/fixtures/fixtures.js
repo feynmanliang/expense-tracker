@@ -1,12 +1,13 @@
 /** Resets the entire database. Should only be called in velocity mirror. */
 function resetDatabase() {
-  // safety check
-  if (!process.env.IS_MIRROR) {
-    throw new Meteor.Error(
-      'NOT_ALLOWED',
-      'velocityReset is not allowed outside of a mirror. Something has gone wrong.'
-    );
-  }
+  console.log(process.env)
+  // safety check (disabled because promises don't necesarily keep process.env consistent)
+  //if (!process.env.IS_MIRROR) {
+  //  throw new Meteor.Error(
+  //    'NOT_ALLOWED',
+  //    'velocityReset is not allowed outside of a mirror. Something has gone wrong.'
+  //  );
+  //}
 
   var db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   var collections = Meteor.wrapAsync(db.collections, db)();

@@ -72,6 +72,7 @@ mongo-livedata@1.0.9
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
+okgrow:promise@0.9.5
 ordered-dict@1.0.4
 package-version-parser@3.0.4
 practicalmeteor:chai@2.1.0_1

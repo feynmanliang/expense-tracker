@@ -9,22 +9,28 @@ describe("createExpense", () => {
   }
 
   it("does not insert if user is not logged in", (done) => {
-    Meteor.logout(() => {
-      Meteor.call("createExpense", validExpense, (err, res) => {
+    Meteor.wrapPromise(Meteor.logout)()
+      .then(() => Meteor.promise("createExpense", validExpense))
+      .then((res) => {
         expect(res).toBeFalsy();
         done();
       })
-    });
-  })
+      .catch((err) => {
+        expect(err).toBeTruthy();
+        done();
+      });
+  });
 
   it("inserts when a user is logged in", (done) => {
-    Package.fixtures.TestUsers.user.login(() => {
-      Meteor.call("createExpense", validExpense, (err, res) => {
-        expect(res).toBeTruthy();
+    Meteor.wrapPromise(Package.fixtures.TestUsers.user.login)()
+      .then(() => Meteor.promise("createExpense", validExpense))
+      .then((res) => expect(res).toBeTruthy())
+      .then(() => Meteor.wrapPromise(Package.fixtures.TestUsers.user.logout))
+      .then(done)
+      .catch((err) => {
+        expect(err).toBeFalsy();
         done();
-      })
-    });
-    Package.fixtures.TestUsers.user.logout();
+      });
   });
 })
 
@@ -39,23 +45,23 @@ describe("updateExpense", () => {
   }
   var otherExpense;
   beforeAll((done) => {
-    Meteor.call(
-      'fixtures/expenses/create', { _id: Random.id() }, expenseData, (err, expense) => {
-        otherExpense = expense;
-        done();
-      }
-    )
+    Meteor.promise('fixtures/expenses/create', { _id: Random.id() }, expenseData)
+      .then((expense) => otherExpense = expense)
+      .then(done)
   });
 
   it("fails if user is not logged in", (done) => {
-    Meteor.logout(() => {
-      Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
-        expect(err).toBeTruthy();
+    Meteor.wrapPromise(Meteor.logout)()
+      .then(() => Meteor.promise("updateExpense", validModifier, otherExpense._id))
+      .then((res) => {
         expect(res).toBeFalsy();
         done();
+      })
+      .catch((err) => {
+        expect(err).toBeTruthy();
+        done();
       });
-    });
-  })
+  });
 
   for (let role of ['user', 'manager', 'admin']) {
     describe("as an " + role, () => {
