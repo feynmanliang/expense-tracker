@@ -37,7 +37,7 @@ function createUser(userData, roles) {
   if (roles) {
     Roles.addUsersToRoles(user._id, roles);
   }
-  console.log('creating user ' + user[0] + ' with roles ' + roles);
+  console.log('creating user ' + JSON.stringify(user) + ' with roles ' + roles);
   return user;
 };
 
