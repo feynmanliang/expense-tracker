@@ -8,7 +8,7 @@ describe("createExpense", () => {
     comment: "This is a comment",
   }
 
-  it("does not insert if user is not logged in", () => {
+  it("does not insert if user is not logged in", (done) => {
     if (Meteor.user()) Meteor.logout();
     Meteor.call("createExpense", validExpense, (err, res) => {
       expect(res).toBeFalsy();
@@ -56,17 +56,21 @@ describe("updateExpense", () => {
       Package.fixtures.TestUsers[role].login();
       expenseId = Meteor.call("createExpense", validExpense);
       it("updates own expense", (done) => {
-        Meteor.call("createExpense", validExpense, (err, res) => {
-          expect(res).toBeTruthy();
+        Meteor.call("updateExpense", validModifier, (err, res) => {
+          // TODO
           done();
         })
       });
 
       if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
         it("does not update other user's expenses", (done) => {
+          // TODO
+          done()
         })
       } else {
         it("can edit other user's expenses", () => {
+          // TODO
+          done()
         })
       }
       Package.fixtures.TestUsers[role].logout();

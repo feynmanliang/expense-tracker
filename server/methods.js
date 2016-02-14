@@ -38,7 +38,10 @@ Meteor.methods({
   },
 
   updateExpense: function(modifier, id) {
-    const expense = Expenses.findOne(id);;
+    const expense = Expenses.findOne(id);
+    if (!expense) {
+      throw new Meteor.Error(404, "Not found, expense with id="+id);
+    }
     if (expense.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), ['admin'])) {
       Expenses.update(id, modifier);
     } else {
@@ -47,7 +50,10 @@ Meteor.methods({
   },
 
   deleteExpense: function(id) {
-    const expense = Expenses.findOne(id);;
+    const expense = Expenses.findOne(id);
+    if (!expense) {
+      throw new Meteor.Error(404, "Not found, expense with id="+id);
+    }
     if (expense.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), ['admin'])) {
       Expenses.remove(id);
     } else {

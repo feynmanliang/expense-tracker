@@ -1,8 +1,3 @@
-Meteor.startup(function() {
-  // Disable login attempt rate limiting for our test users
-  Accounts.removeDefaultRateLimit();
-})
-
 /** Resets the entire database. Should only be called in velocity mirror. */
 function resetDatabase() {
   // safety check

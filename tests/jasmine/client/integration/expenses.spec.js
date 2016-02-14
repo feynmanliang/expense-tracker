@@ -1,7 +1,7 @@
 describe ("the expenses page", () => {
   describe("when not logged in", () => {
     it("should redirect to '/'", (done) => {
-      Meteor.logout((eer) => {
+      Meteor.logout((err) => {
         FlowRouter.go('/expenses');
         Meteor.setTimeout(() => {
           // TODO: check redirect
@@ -19,13 +19,7 @@ describe ("the expenses page", () => {
       Package.fixtures.TestUsers.user.logout();
     });
 
-    it("should include the user's name on the welcome message", (done) => {
-      Meteor.setTimeout(() => {
-        expect($('.jumbotron h1').text()).toContain(
-          Meteor.users.findOne(Meteor.user()).username);
-        done();
-      }, 400);
-    });
+    // TODO
 
     it("should include navbar links", (done) => {
       Meteor.setTimeout(() => {
