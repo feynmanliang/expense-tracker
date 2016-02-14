@@ -37,9 +37,13 @@ function createUser(userData, roles) {
   if (roles) {
     Roles.addUsersToRoles(user._id, roles);
   }
-  console.log('creating user ' + user + ' with roles ' + roles);
+  console.log('creating user ' + user[0] + ' with roles ' + roles);
   return user;
 };
+
+function removeDefaultRateLimit() {
+  return Accounts.removeDefaultRateLimit();
+}
 
 function createDefaultUsers() {
   var user = createUser({
@@ -104,6 +108,7 @@ function createDefaultExpenses(user) {
 
 Meteor.methods({
   resetDatabase: resetDatabase,
+  removeDefaultRateLimit: removeDefaultRateLimit,
   'fixtures/users/create': createUser,
   'fixtures/users/createDefault': createDefaultUsers,
   'fixtures/expenses/create': createExpense,

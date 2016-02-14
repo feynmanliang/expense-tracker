@@ -29,27 +29,24 @@ describe ("the welcome page", () => {
 
   describe("when logged in", () => {
     // TODO: login/out with before/afterAll
+    //
     it("should include the user's name on the welcome message", (done) => {
       Package.fixtures.TestUsers.user.login(() => {
+        FlowRouter.go('welcome');
         Meteor.setTimeout(() => {
-          expect($('.jumbotron h1').text()).toContain(
-            Meteor.users.findOne(Meteor.user()).username);
-            done();
+          expect($('.jumbotron h1').text()).toContain('user'); // TODO: remove hardcode
+          done();
         }, 400);
       });
       Package.fixtures.TestUsers.user.logout();
     });
 
     it("should include navbar links", (done) => {
-      Package.fixtures.TestUsers.user.login(() => {
-        Meteor.setTimeout(() => {
-          expect(
-            $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
-          ).toEqual(3);
-          done();
-        }, 400);
-      });
+      expect(
+        $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
+      ).toEqual(3);
       Package.fixtures.TestUsers.user.logout();
+      done();
     });
   });
 });

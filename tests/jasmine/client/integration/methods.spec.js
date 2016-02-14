@@ -9,11 +9,12 @@ describe("createExpense", () => {
   }
 
   it("does not insert if user is not logged in", (done) => {
-    if (Meteor.user()) Meteor.logout();
-    Meteor.call("createExpense", validExpense, (err, res) => {
-      expect(res).toBeFalsy();
-      done();
-    })
+    Meteor.logout(() => {
+      Meteor.call("createExpense", validExpense, (err, res) => {
+        expect(res).toBeFalsy();
+        done();
+      })
+    });
   })
 
   it("inserts when a user is logged in", (done) => {
@@ -40,15 +41,17 @@ describe("updateExpense", () => {
 
   let expenseId;
   it("fails if user is not logged in", (done) => {
-    Package.fixtures.TestUsers.user.login();
-    expenseId = Meteor.call("createExpense", validExpense);
-    Package.fixtures.TestUsers.user.logout();
-    Meteor.call("updateExpense", validModifier, (err, res) => {
-      expect(err).toBeTruthy();
-      expect(res).toBeFalsy();
-      done();
-    })
-    Meteor.call("deleteExpense", expenseId);
+    done()
+    Package.fixtures.TestUsers.user.login(() => {
+      const expense = Expenses.find().first();
+      Package.fixtures.TestUsers.user.logout(() => {
+        Meteor.call("updateExpense", validModifier, expense._id, (err, res) => {
+          expect(err).toBeTruthy();
+          expect(res).toBeFalsy();
+          done();
+        })
+      });
+    });
   })
 
   for (let role of ['user', 'manager', 'admin']) {
@@ -56,7 +59,7 @@ describe("updateExpense", () => {
       Package.fixtures.TestUsers[role].login();
       expenseId = Meteor.call("createExpense", validExpense);
       it("updates own expense", (done) => {
-        Meteor.call("updateExpense", validModifier, (err, res) => {
+        Meteor.call("updateExpense", validModifier, expenseId, (err, res) => {
           // TODO
           done();
         })
