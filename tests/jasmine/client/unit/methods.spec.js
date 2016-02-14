@@ -29,54 +29,73 @@ describe("createExpense", () => {
 })
 
 describe("updateExpense", () => {
-  const validExpense = {
-    timestamp: new Date(),
-    description: "This is an expense",
-    amount: 1.01,
-    comment: "This is a comment"
-  }
   const validModifier = {
-    description: "New expense description"
+    $set: { description: "New expense description" }
   }
+  const expenseData =  {
+    timestamp: new Date(),
+    description: "Another user's expense",
+    amount: 42.42
+  }
+  var otherExpense;
+  beforeAll((done) => {
+    Meteor.call(
+      'fixtures/expenses/create', { _id: Random.id() }, expenseData, (err, expense) => {
+        otherExpense = expense;
+        done();
+      }
+    )
+  });
 
-  let expenseId;
   it("fails if user is not logged in", (done) => {
-    done()
-    Package.fixtures.TestUsers.user.login(() => {
-      const expense = Expenses.find().first();
-      Package.fixtures.TestUsers.user.logout(() => {
-        Meteor.call("updateExpense", validModifier, expense._id, (err, res) => {
-          expect(err).toBeTruthy();
-          expect(res).toBeFalsy();
-          done();
-        })
+    Meteor.logout(() => {
+      Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
+        expect(err).toBeTruthy();
+        expect(res).toBeFalsy();
+        done();
       });
     });
   })
 
   for (let role of ['user', 'manager', 'admin']) {
     describe("as an " + role, () => {
-      Package.fixtures.TestUsers[role].login();
-      expenseId = Meteor.call("createExpense", validExpense);
+      const validExpense = {
+        timestamp: new Date(),
+        description: "This is an expense",
+        amount: 1.01,
+        comment: "This is a comment"
+      }
+      beforeAll((done) => Package.fixtures.TestUsers[role].login(() => {
+        done()
+      });
+      afterAll((done) => Package.fixtures.TestUsers[role].logout(done));
       it("updates own expense", (done) => {
-        Meteor.call("updateExpense", validModifier, expenseId, (err, res) => {
-          // TODO
-          done();
-        })
+        Meteor.call('fixtures/expenses/create', Meteor.user(), validExpense, (err, ownExpense) => {
+          Meteor.call("updateExpense", validModifier, ownExpense._id, (err, res) => {
+            expect(res).toBeTruthy();
+            expect(err).toBeFalsy();
+            done();
+          });
+        });
       });
 
       if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
         it("does not update other user's expenses", (done) => {
-          // TODO
-          done()
-        })
+          Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
+            expect(res).toBeFalsy();
+            expect(err).toBeTruthy();
+            done();
+          });
+        });
       } else {
-        it("can edit other user's expenses", () => {
-          // TODO
-          done()
-        })
+        it("can edit other user's expenses", (done) => {
+          Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
+            expect(res).toBeTruthy();
+            expect(err).toBeFalsy();
+            done();
+          })
+        });
       }
-      Package.fixtures.TestUsers[role].logout();
     })
   }
 })

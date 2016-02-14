@@ -78,7 +78,7 @@ function createExpense(user, expenseData) {
 }
 
 /**
- * Crates some expenses for a use.
+ * Creates some expenses for a use.
  * @param {{_id: string}}
  */
 function createDefaultExpenses(user) {
