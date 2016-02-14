@@ -7,13 +7,21 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use([
     'underscore',
-    'mongo'
+    'mongo',
   ], 'server');
+
   api.addFiles([
-    'fixtures.js'
+    'test-user-fixtures.js',
+    'fixtures.js',
   ], 'server');
+  api.export([
+    'TestUsers',
+  ], 'server');
+
   api.addFiles([
-    'test-user-fixtures.js'
+    'test-user-fixtures.js',
   ], 'client');
-  api.export('TestUsers', 'client');
+  api.export([
+    'TestUsers',
+  ], 'client');
 });

@@ -7,7 +7,7 @@ Meteor.publish('Expenses', function() {
 });
 
 Meteor.publish('WeekyReport', function() {
-  return WeeklyReport.find({});
+  return WeeklyReport.find({ ownerId : this.userId });
 });
 
 Meteor.publish('Users', function() {

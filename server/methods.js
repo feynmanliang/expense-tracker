@@ -1,11 +1,8 @@
 Meteor.methods({
-  makeWeeklyReportData: function() {
-    WeeklyReport.remove({}); // clear old reports
-
-    // generate and add new ones
+  makeWeeklyReportData: function(userId) {
     const agg = Expenses.aggregate([
       {$match: {
-        ownerId: Meteor.userId()
+        ownerId: userId
       }},
       {$group: {
         _id: {
@@ -20,7 +17,8 @@ Meteor.methods({
       return {
         ...stats,
         ...stats._id,
-        _id: stats._id.year + '-' + stats._id.week
+        ownerId: userId,
+        _id: userId + '-' + stats._id.year + '-' + stats._id.week,
       };
     });
     _(byWeek).forEach((week) => WeeklyReport.upsert(week._id, week));
