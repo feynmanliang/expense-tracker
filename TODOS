@@ -1,6 +1,6 @@
-* Redirect to root on sign out
-* Custom sign-on page (WONT DO, violates single-page universal nav)
-* WeeklyReport in unpersisted collection
+* Denormalize ownerName onto expense to allow sorting
+* All users can edit password
+* Admins can create users
 * Plots for WeeklyReport
   * Let aggregation window be arbitrary (dailyReports, hourlyReports)
   * Fold over repeated data (e.g. data per day of week) or distinguish (current impl, data per unique day/week)

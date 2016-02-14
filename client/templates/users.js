@@ -6,11 +6,14 @@ Template.updateUserForm.onCreated(function () {
   this.subscribe("Users")
 })
 
+AutoForm.addHooks('updateUserForm', { onSuccess: () => FlowRouter.go('/user'), });
+
 Template.updateUserCell.events({
   'click .update': function () {
     FlowRouter.go('/user/' + this._id);
   }
 });
+
 
 Template.deleteUserCell.events({
   'click .delete': function () {
