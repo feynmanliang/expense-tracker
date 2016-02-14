@@ -43,7 +43,7 @@ Meteor.methods({
       throw new Meteor.Error(404, "Not found, expense with id="+id);
     }
     if (expense.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-      Expenses.update(id, modifier);
+      return Expenses.update(id, modifier);
     } else {
       throw new Meteor.Error(403, "Access denied");
     }

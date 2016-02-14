@@ -65,10 +65,9 @@ describe("updateExpense", () => {
         amount: 1.01,
         comment: "This is a comment"
       }
-      beforeAll((done) => Package.fixtures.TestUsers[role].login(() => {
-        done()
-      });
+      beforeAll((done) => Package.fixtures.TestUsers[role].login(done));
       afterAll((done) => Package.fixtures.TestUsers[role].logout(done));
+
       it("updates own expense", (done) => {
         Meteor.call('fixtures/expenses/create', Meteor.user(), validExpense, (err, ownExpense) => {
           Meteor.call("updateExpense", validModifier, ownExpense._id, (err, res) => {
@@ -79,23 +78,21 @@ describe("updateExpense", () => {
         });
       });
 
-      if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-        it("does not update other user's expenses", (done) => {
+      it("only updates other expenses if user is admin", (done) => {
+        if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
           Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
             expect(res).toBeFalsy();
             expect(err).toBeTruthy();
             done();
           });
-        });
-      } else {
-        it("can edit other user's expenses", (done) => {
+        } else {
           Meteor.call("updateExpense", validModifier, otherExpense._id, (err, res) => {
             expect(res).toBeTruthy();
             expect(err).toBeFalsy();
             done();
           })
-        });
-      }
+        }
+      })
     })
   }
 })
