@@ -5,7 +5,7 @@ describe ("the welcome page", () => {
 
   describe("when not logged in", () => {
     it("should include the text 'Please log in'", (done) => {
-      Meteor.logout((eer) => {
+      Meteor.logout((err) => {
         FlowRouter.go('/');
         Meteor.setTimeout(() => {
           expect($('.jumbotron p').text()).toContain('Please login');
@@ -15,7 +15,7 @@ describe ("the welcome page", () => {
     });
 
     it("should not have navbar links", (done) => {
-      Meteor.logout((eer) => {
+      Meteor.logout((err) => {
         FlowRouter.go('/');
         Meteor.setTimeout(() => {
           expect(
@@ -28,28 +28,28 @@ describe ("the welcome page", () => {
   });
 
   describe("when logged in", () => {
-    beforeAll(() => {
-      Package.fixtures.TestUsers.user.login();
-    });
-    afterAll(() => {
+    // TODO: login/out with before/afterAll
+    it("should include the user's name on the welcome message", (done) => {
+      Package.fixtures.TestUsers.user.login(() => {
+        Meteor.setTimeout(() => {
+          expect($('.jumbotron h1').text()).toContain(
+            Meteor.users.findOne(Meteor.user()).username);
+            done();
+        }, 400);
+      });
       Package.fixtures.TestUsers.user.logout();
     });
 
-    it("should include the user's name on the welcome message", (done) => {
-      Meteor.setTimeout(() => {
-        expect($('.jumbotron h1').text()).toContain(
-          Meteor.users.findOne(Meteor.user()).username);
-        done();
-      }, 400);
-    });
-
     it("should include navbar links", (done) => {
-      Meteor.setTimeout(() => {
-        expect(
-          $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
-        ).toEqual(3);
-        done();
-      }, 400);
+      Package.fixtures.TestUsers.user.login(() => {
+        Meteor.setTimeout(() => {
+          expect(
+            $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
+          ).toEqual(3);
+          done();
+        }, 400);
+      });
+      Package.fixtures.TestUsers.user.logout();
     });
   });
 });
