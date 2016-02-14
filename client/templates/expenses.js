@@ -1,8 +1,3 @@
-Template.expenseList.onCreated(function () {
-  this.subscribe("Expenses")
-  this.subscribe("Users")
-})
-
 Template.expenseList.events({
   'click .create': function(e) {
     e.preventDefault();

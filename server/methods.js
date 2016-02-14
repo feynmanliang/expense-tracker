@@ -25,7 +25,6 @@ Meteor.methods({
   },
 
   createExpense: function(exp) {
-    console.log(exp);
     if (Meteor.user()) {
       return Expenses.insert({
         ...exp,
