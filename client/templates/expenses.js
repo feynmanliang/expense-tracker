@@ -1,4 +1,5 @@
 Template.expenseList.onCreated(function () {
+  this.subscribe("Expenses")
   this.subscribe("Users")
 })
 
@@ -11,6 +12,7 @@ Template.expenseList.events({
 
 Template.createExpenseForm.helpers({
   now: () => moment().toDate(),
+  userId: () => Meteor.userId()
 })
 
 Template.createExpenseForm.events({
@@ -20,23 +22,18 @@ Template.createExpenseForm.events({
   }
 });
 
+Template.updateExpenseForm.helpers({
+  expenseData: function() {
+    return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
+  },
+})
+
 Template.updateExpenseForm.events({
   'click .cancel': function(e) {
     e.preventDefault();
     FlowRouter.go('/expense');
   }
 });
-
-Template.updateExpenseForm.helpers({
-  userId: () => Meteor.userId(),
-  expenseData: function() {
-    return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
-  },
-})
-
-Template.updateExpenseForm.onCreated(function () {
-  this.subscribe("Expenses")
-})
 
 Template.updateExpenseCell.events({
   'click .update': function () {
