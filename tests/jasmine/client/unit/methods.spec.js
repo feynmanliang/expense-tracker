@@ -75,13 +75,16 @@ describe("updateExpense", () => {
       afterAll((done) => Package.fixtures.TestUsers[role].logout(done));
 
       it("updates own expense", (done) => {
-        Meteor.call('fixtures/expenses/create', Meteor.user(), validExpense, (err, ownExpense) => {
-          Meteor.call("updateExpense", validModifier, ownExpense._id, (err, res) => {
+        Meteor.promise('fixtures/expenses/create', Meteor.user(), validExpense)
+          .then((ownExpense) => Meteor.promise("updateExpense", validModifier, ownExpense._id))
+          .then((res) => {
             expect(res).toBeTruthy();
+            done();
+          })
+          .catch((err) => {
             expect(err).toBeFalsy();
             done();
           });
-        });
       });
 
       it("only updates other expenses if user is admin", (done) => {
