@@ -17,6 +17,8 @@ Template.createExpenseForm.events({
   }
 });
 
+AutoForm.addHooks('createExpenseForm', { onSuccess: () => FlowRouter.go('/expense'), });
+
 Template.updateExpenseForm.helpers({
   expenseData: function() {
     return Expenses.findOne({_id: FlowRouter.getParam('expenseId')});
