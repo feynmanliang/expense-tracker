@@ -4,9 +4,7 @@ describe ("the welcome page", () => {
   });
 
   describe("when not logged in", () => {
-    beforeAll((done) => {
-      Meteor.logout(done);
-    });
+    beforeAll((done) => Meteor.logout(done));
 
     it("should include the text 'Please log in'", (done) => {
       FlowRouter.go('/');
@@ -28,13 +26,8 @@ describe ("the welcome page", () => {
   });
 
   describe("when logged in", () => {
-    // TODO: login/out with before/afterAll
-    beforeAll((done) => {
-      Package.fixtures.TestUsers.user.login(done);
-    })
-    afterAll((done) => {
-      Package.fixtures.TestUsers.user.logout(done);
-    })
+    beforeAll((done) => Package.fixtures.TestUsers.user.login(done));
+    afterAll((done) => Package.fixtures.TestUsers.user.logout(done));
 
     it("should include the user's name on the welcome message", (done) => {
       FlowRouter.go('welcome');

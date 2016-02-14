@@ -1,8 +1,6 @@
 describe ("the expenses page", () => {
   describe("when not logged in", () => {
-    beforeAll((done) => {
-      Meteor.logout(done)
-    });
+    beforeAll((done) => Meteor.logout(done));
 
     it("should redirect to 'welcome'", (done) => {
       FlowRouter.go('/expense');
@@ -14,12 +12,8 @@ describe ("the expenses page", () => {
   });
 
   describe("when logged in", () => {
-    beforeAll((done) => {
-      Package.fixtures.TestUsers.user.login(done);
-    });
-    afterAll((done) => {
-      Package.fixtures.TestUsers.user.logout(done);
-    });
+    beforeAll((done) => Package.fixtures.TestUsers.user.login(done));
+    afterAll((done) => Package.fixtures.TestUsers.user.logout(done));
 
     it("should include navbar links", (done) => {
       Tracker.afterFlush(() => {
