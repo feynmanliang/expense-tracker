@@ -21,7 +21,7 @@ Meteor.methods({
         _id: userId + '-' + stats._id.year + '-' + stats._id.week,
       };
     });
-    _(byWeek).forEach((week) => WeeklyReport.upsert(week._id, week));
+    _(byWeek).forEach((week) => WeeklyReport.upsert(week._id, { $set: week }));
   },
 
   createExpense: function(exp) {
