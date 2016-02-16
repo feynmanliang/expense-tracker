@@ -11,25 +11,18 @@
 
 <template name="updateUserForm">
   {{#autoForm
-    template="plain" class="ui form"
     collection="Meteor.users"
     doc=userData
     id="updateUserForm"
     type="method-update"
     meteormethod="updateUser"}}
-    <fieldset>
-      <legend>Update a User</legend>
-      {{> afQuickField
-        name='username'
-        formgroup-class="field"}}
-      {{> afQuickField
-        name='roles' options=roleOptions
-        formgroup-class="field"}}
-      <div class="ui buttons">
-        <button type="submit" class="ui positive button">Save</button>
-        <div class="or"></div>
-        <button type="cancel" class="ui button cancel">Cancel</button>
-      </div>
-    </fieldset>
+    <h4 class="ui dividing header">Update a user</h4>
+    {{> afQuickField name='username' }}
+    {{> afQuickField name='roles' options=roleOptions }}
+    <div class="ui buttons">
+      <button type="submit" class="ui positive button">Save</button>
+      <div class="or"></div>
+      <button type="cancel" class="ui button cancel">Cancel</button>
+    </div>
   {{/autoForm}}
 </template>

@@ -36,28 +36,19 @@
 
 <template name="updateExpenseForm">
   {{#autoForm
-    template="plain" class="ui form"
     collection="Expenses"
     doc=expenseData
     id="updateExpenseForm"
     type="method-update"
     meteormethod="updateExpense"}}
-    <fieldset>
-      <legend>Update an Expense</legend>
-      {{> afQuickField
-        name='amount'
-        formgroup-class="field"}}
-      {{> afQuickField
-        name='description' rows=2
-        formgroup-class="field"}}
-      {{> afQuickField
-        name='comment' rows=2
-        formgroup-class="field"}}
-        <div class="ui buttons">
-          <button type="submit" class="ui positive button update">Save</button>
-          <div class="or"></div>
-          <button type="cancel" class="ui button cancel">Cancel</button>
-        </div>
-    </fieldset>
+      <h4 class="ui dividing header">Update an expense</h4>
+      {{> afQuickField name='amount' }}
+      {{> afQuickField name='description' rows=2 }}
+      {{> afQuickField name='comment' rows=2 }}
+      <div class="ui buttons">
+        <button type="submit" class="ui positive button update">Save</button>
+        <div class="or"></div>
+        <button type="cancel" class="ui button cancel">Cancel</button>
+      </div>
   {{/autoForm}}
 </template>
