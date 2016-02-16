@@ -1,7 +1,7 @@
 <template name="navbar">
   <div class="navbar">
-    <div class="ui left vertical inverted sticky menu" style="width: 175px;">
-      <div class="item">
+    <div class="ui left vertical inverted sticky pointing menu" style="width: 175px;">
+      <div class="item {{isActive "welcome"}}">
         <a class="ui mini logo icon image" href="/">
           <img src="/images/ET.png">
         </a>
@@ -11,24 +11,22 @@
       </div>
       {{#if currentUser}}
       <div class="item">
-        <div class="menu">
-          <a class="item" href="/expense">
+        <div class="ui inverted vertical menu">
+          <a class="item {{isActive "expense"}}" href="/expense">
             Expenses
           </a>
-          <a class="item" href="/report">
+          <a class="item {{isActive "report"}}" href="/report">
             Weekly Report
           </a>
-          <a class="item" href="/user">
+          {{#if isManagerOrAdmin}}
+          <a class="item {{isActive "user"}}" href="/user">
             Manage Users
           </a>
+          {{/if}}
         </div>
       </div>
       <a class="item logout" href="/logout">
         <b>Logout</b>
-      </a>
-      {{else}}
-      <a class="item" href="/">
-        <b>Login</b>
       </a>
       {{/if}}
     </div>
