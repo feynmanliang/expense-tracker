@@ -9,8 +9,8 @@
   <div class="full height" style="min-height: 800px;">
     {{> navbar}}
     <div class="article">
+      <h2 class="ui dividing header segment">{{title}}</h2>
       <div class="main ui container">
-        <h2 class="ui dividing header">{{title}}</h2>
         <div class="ui grid stackable">
           {{> Template.contentBlock}}
         </div>
@@ -22,10 +22,10 @@
 
 <template name="splitContent">
   {{#mainLayout this}}
-  <div class="four wide column">
+  <div class="four wide column segment">
     {{> Template.dynamic template=left}}
   </div>
-  <div class="twelve wide column">
+  <div class="twelve wide column segment">
     {{> Template.dynamic template=main}}
   </div>
   {{/mainLayout}}
@@ -33,7 +33,7 @@
 
 <template name="fullContent">
   {{#mainLayout this}}
-  <div class="sixteen wide column">
+  <div class="sixteen wide column segment">
     {{> Template.dynamic template=main}}
   </div>
   {{/mainLayout}}
