@@ -45,7 +45,9 @@ describe("updateExpense", () => {
   }
   var otherExpense;
   beforeAll((done) => {
-    Meteor.promise('fixtures/expenses/create', { _id: Random.id() }, expenseData)
+    Meteor.promise('fixtures/expenses/create',
+                   { _id: Random.id(), username: "randomName" },
+                   expenseData)
       .then((expense) => otherExpense = expense)
       .then(done)
   });

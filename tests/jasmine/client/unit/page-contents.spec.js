@@ -1,15 +1,11 @@
 describe ("the welcome page", () => {
-  it("should have navbar title 'ExpenseTracker'", () => {
-    expect($(".navbar-brand").text()).toEqual('ExpenseTracker');
-  });
-
   describe("when not logged in", () => {
     beforeAll((done) => Meteor.logout(done));
 
-    it("should include the text 'Please log in'", (done) => {
+    it("should show a login prompt", (done) => {
       FlowRouter.go('/');
       Tracker.afterFlush(() => {
-        expect($('.jumbotron p').text()).toContain('Please login');
+        expect($('.at-btn')[0].value).toEqual("Sign In")
         done()
       });
     });
@@ -17,9 +13,7 @@ describe ("the welcome page", () => {
     it("should not have navbar links", (done) => {
       FlowRouter.go('/');
       Tracker.afterFlush(() => {
-        expect(
-          $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
-        ).toEqual(0);
+        expect($('.navbar .menu .menu').length).toEqual(0);
         done()
       });
     });
@@ -32,15 +26,16 @@ describe ("the welcome page", () => {
     it("should include the user's name on the welcome message", (done) => {
       FlowRouter.go('welcome');
       Tracker.afterFlush(() => {
-        expect($('.jumbotron h1').text()).toContain('user'); // TODO: remove hardcode
+        expect($('.article h3.ui.header').text()).toContain('user'); // TODO: remove hardcode
         done();
       });
     });
 
-    it("should include navbar links", () => {
-      expect(
-        $('#bs-example-navbar-collapse-1 > ul:nth-child(1)').children().length
-      ).toEqual(3);
+    it("should include navigation links", (done) => {
+      Tracker.afterFlush(() => {
+        expect($('.navbar .menu .menu').length).toEqual(1);
+        done();
+      })
     });
   });
 });
