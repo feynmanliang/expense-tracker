@@ -1,10 +1,11 @@
 <template name="welcome">
   {{#if currentUser}}
-  <h3 class="ui header">Welcome back, {{currentUser.username}}.</h3>
-  {{> atForm}}
+    <h3 class="ui header">Welcome back, {{currentUser.username}}.</h3>
   {{else}}
-  <h3 class="ui header">Welcome.</h3>
-  <p>Please login in to continue.</p>
-  {{> atForm}}
+    <div class="ui sixteen wide centered grid">
+      <div class="six wide column">
+        {{> atForm}}
+      </div>
+    </div>
   {{/if}}
 </template>

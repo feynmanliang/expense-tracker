@@ -9,7 +9,6 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 amplify@1.0.0
 anti:i18n@0.4.3
-aslagle:reactive-table@0.8.25
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -38,7 +37,9 @@ ecmascript-runtime@0.2.6
 ejson@1.0.7
 email@1.0.8
 es5-shim@4.1.14
+fabienb4:autoform-semantic-ui@0.9.3
 fastclick@1.0.7
+fcallem:reactive-table-semantic@0.0.1
 fixtures@0.0.0
 flemay:less-autoprefixer@1.2.0
 geojson-utils@1.0.4

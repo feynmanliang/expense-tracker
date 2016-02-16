@@ -23,7 +23,7 @@ Template.report.helpers({
           fn: (value, object, key) => value.toFixed(2),
         },
       ],
-      class: "ui table",
+      class: "ui striped selectable fluid table reactive-table",
     };
   }
 });

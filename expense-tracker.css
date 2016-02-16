@@ -18,6 +18,9 @@
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
 }
+.navbar .sticky.menu .logo.image {
+  vertical-align: bottom;
+}
 .navbar .ui.menu {
   border-radius: 0;
   border-width: 0 1px 0 0;
@@ -34,7 +37,14 @@
           flex: 1 1 auto;
   min-width: 0px;
 }
+.main.container {
+  margin: 2em;
+  /*padding: 2em 0em 7em;*/
+}
 
+/* Table controls */
 .reactive-table td.tableControls {
   text-align: right;
 }
+
+

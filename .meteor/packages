@@ -37,4 +37,5 @@ meteorhacks:unblock
 semantic:ui
 flemay:less-autoprefixer
 useraccounts:semantic-ui
-aslagle:reactive-table
+fabienb4:autoform-semantic-ui
+fcallem:reactive-table-semantic

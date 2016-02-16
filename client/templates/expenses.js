@@ -16,7 +16,11 @@ Template.expenseTable.helpers({
       enableRegex: true,
       fields: [
         { key: 'ownerName', label: 'Owner' },
-        { key: 'timestamp', label: 'Date/Time' },
+        {
+          key: 'timestamp',
+          label: 'Date/Time',
+          fn: (value) => moment(value).format('MMMM Do YYYY, h:mm a')
+        },
         {
           key: 'amount',
           label: 'Amount',
@@ -26,7 +30,7 @@ Template.expenseTable.helpers({
         { key: 'comment', label: 'Comment' },
         { key: 'tableControls', label: '', tmpl: Template.expenseTableControls },
       ],
-      class: "ui table",
+      class: "ui striped selectable fluid table reactive-table",
     };
   }
 });

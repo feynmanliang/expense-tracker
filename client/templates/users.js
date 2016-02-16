@@ -10,10 +10,14 @@ Template.userTable.helpers({
       enableRegex: true,
       fields: [
         { key: 'username', label: 'Username' },
-        { key: 'roles', label: 'Roles' },
+        {
+          key: 'roles',
+          label: 'Roles',
+          fn: (value) => value.join(", "),
+        },
         { key: 'tableControls', label: '', tmpl: Template.userTableControls },
       ],
-      class: "ui table",
+      class: "ui striped selectable fluid table reactive-table",
     };
   }
 });

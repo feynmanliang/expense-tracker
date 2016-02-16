@@ -13,34 +13,25 @@
 </template>
 
 <template name="createExpenseForm">
-  {{#autoForm
-    template="plain" class="ui form"
+    {{#autoForm
     collection="Expenses"
     id="createExpenseForm"
     type="method"
     meteormethod="createExpense"}}
-    <fieldset>
-      <legend>Add an Expense</legend>
-      {{> afQuickField
-        name='amount' placeholder="Enter an amount (up to two decimal places)"
-        formgroup-class="field"}}
-      {{> afQuickField
-        name='description' rows=2 placeholder="Enter a description"
-        formgroup-class="field"}}
-      {{> afQuickField
-        name='comment' rows=2 placeholder="Enter a comment (optional)"
-        formgroup-class="field"}}
+    <h4 class="ui dividing header">Add an expense</h4>
+    {{> afQuickField name='amount' placeholder="Enter an amount (up to two decimal places)" }}
+    {{> afQuickField name='description' rows=2 placeholder="Enter a description" }}
+    {{> afQuickField name='comment' rows=2 placeholder="Enter a comment (optional)" }}
 
-      {{> afQuickField name='timestamp' type="hidden" value=now}}
-      {{> afQuickField name='ownerId' type="hidden" value=userId}}
-      {{> afQuickField name='ownerName' type="hidden" value=userName}}
-      <div class="ui buttons">
-        <button type="submit" class="ui positive button">Save</button>
-        <div class="or"></div>
-        <button type="cancel" class="ui button cancel">Cancel</button>
-      </div>
-    </fieldset>
-  {{/autoForm}}
+    {{> afQuickField name='timestamp' type="hidden" value=now}}
+    {{> afQuickField name='ownerId' type="hidden" value=userId}}
+    {{> afQuickField name='ownerName' type="hidden" value=userName}}
+    <div class="ui buttons">
+      <button type="submit" class="ui positive button">Save</button>
+      <div class="or"></div>
+      <button type="cancel" class="ui button cancel">Cancel</button>
+    </div>
+    {{/autoForm}}
 </template>
 
 <template name="updateExpenseForm">
