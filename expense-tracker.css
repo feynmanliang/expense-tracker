@@ -8,6 +8,7 @@
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
+  min-height: 100vh;
 }
 .navbar {
   position: relative;
@@ -47,4 +48,10 @@
   text-align: right;
 }
 
+.navbar {
+  width: 175px;
+}
 
+.navbar > .vertical.menu {
+  width: 175px !important;
+}
