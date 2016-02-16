@@ -1,5 +1,5 @@
 <template name="userList">
-  {{> tabular table=TabularTables.Users class="table table-striped table-bordered table-condensed"}}
+  {{> reactiveTable settings=tableSettings}}
 </template>
 
 <template name="updateUserCell">
@@ -8,6 +8,7 @@
 
 <template name="updateUserForm">
   {{#autoForm
+    template="plain" class="ui form"
     collection="Meteor.users"
     doc=userData
     id="updateUserForm"
@@ -15,8 +16,12 @@
     meteormethod="updateUser"}}
     <fieldset>
       <legend>Update a User</legend>
-      {{> afQuickField name='username'}}
-      {{> afQuickField name='roles' options=roleOptions}}
+      {{> afQuickField
+        name='username'
+        formgroup-class="field"}}
+      {{> afQuickField
+        name='roles' options=roleOptions
+        formgroup-class="field"}}
     </fieldset>
     <button type="submit" class="btn btn-primary">Update</button>
     <button type="cancel" class="btn cancel">Close</button>

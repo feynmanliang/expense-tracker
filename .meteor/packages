@@ -26,7 +26,6 @@ aldeed:autoform
 kadira:flow-router
 kadira:blaze-layout
 meteorhacks:aggregate
-aldeed:tabular
 accounts-password
 alanning:roles
 dburles:collection-helpers
