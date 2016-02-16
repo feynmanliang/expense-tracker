@@ -71,7 +71,8 @@ function createDefaultUsers() {
  */
 function createExpense(user, expenseData) {
   var expenseId = Expenses.insert(_(expenseData).extend({
-    ownerId: user._id
+    ownerId: user._id,
+    ownerName: user.username,
   }));
   var expense = Expenses.findOne(expenseId);
   console.log('creating expenses: ' + JSON.stringify(expenseData));

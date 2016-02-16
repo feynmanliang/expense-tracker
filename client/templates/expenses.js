@@ -16,7 +16,14 @@ Template.expenseList.helpers({
       collection: Expenses,
       rowsPerPage: 25,
       showFilter: true,
-      fields: ['timestamp', 'amount', 'description', 'comment'],
+      enableRegex: true,
+      fields: [
+        { key: 'ownerName', label: 'Owner' },
+        { key: 'timestamp', label: 'Date/Time' },
+        { key: 'amount', label: 'Amount' },
+        { key: 'description', label: 'Description' },
+        { key: 'comment', label: 'Comment' }
+      ],
       class: "ui celled table",
     };
   }
@@ -25,6 +32,7 @@ Template.expenseList.helpers({
 Template.createExpenseForm.helpers({
   now: () => moment().toDate(),
   userId: () => Meteor.userId(),
+  userName: () => Meteor.user().username,
 })
 
 Template.createExpenseForm.events({

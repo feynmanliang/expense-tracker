@@ -28,7 +28,8 @@ Meteor.methods({
     if (Meteor.user()) {
       return Expenses.insert({
         ...exp,
-        ownerId: Meteor.userId()
+        ownerId: Meteor.userId(),
+        ownerName: Meteor.user().username
       });
     } else {
       throw new Meteor.Error(403, "Access denied");
