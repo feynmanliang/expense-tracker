@@ -3,8 +3,10 @@
 </template>
 
 <template name="userTableControls">
-  <button type="button" class="ui button edit">Edit</button>
-  <button type="button" class="ui negative button delete">x</button>
+  <div class="ui small basic icon buttons">
+    <button class="ui button edit"><i class="edit icon"></i></button>
+    <button class="ui negative button delete"><i class="remove icon"></i></button>
+  </div>
 </template>
 
 <template name="updateUserForm">
@@ -23,8 +25,11 @@
       {{> afQuickField
         name='roles' options=roleOptions
         formgroup-class="field"}}
+      <div class="ui buttons">
+        <button type="submit" class="ui positive button">Save</button>
+        <div class="or"></div>
+        <button type="cancel" class="ui button cancel">Cancel</button>
+      </div>
     </fieldset>
-    <button type="submit" class="btn btn-primary">Update</button>
-    <button type="cancel" class="btn cancel">Close</button>
   {{/autoForm}}
 </template>
