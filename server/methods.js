@@ -80,10 +80,10 @@ Meteor.methods({
   },
 
   deleteUser: function(id) {
-    const user = Meteor.user.findOne(id);;
+    const user = Meteor.users.findOne(id);;
     if (user.id === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), ['admin','manager'])) {
-      Meteor.user.remove(id);
-        Roles.setUserRoles(id, []);
+      Roles.setUserRoles(id, []);
+      Meteor.users.remove(id);
     } else {
       throw new Meteor.Error(403, "Access denied");
     }
