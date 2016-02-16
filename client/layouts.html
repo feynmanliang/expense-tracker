@@ -6,18 +6,13 @@
 </body>
 
 <template name="mainLayout">
-  <div class="full height">
+  <div class="full height" style="min-height: 800px;">
     {{> navbar}}
     <div class="article">
       <div class="main ui container">
-        <h2 class="ui dividing header">Page Title</h2>
+        <h2 class="ui dividing header">{{title}}</h2>
         <div class="ui grid stackable">
-          <div class="four wide column">
-            {{> Template.dynamic template=left}}
-          </div>
-          <div class="twelve wide column">
-            {{> Template.dynamic template=main}}
-          </div>
+          {{> Template.contentBlock}}
         </div>
       </div>
     </div>
@@ -25,19 +20,21 @@
   {{> footer}}
 </template>
 
-<template name="fullLayout">
-  <div class="full height">
-    {{> navbar}}
-    <div class="article">
-      <div class="main ui container">
-        <h2 class="ui dividing header">Page Title</h2>
-        <div class="ui page grid stackable">
-          <div class="sixteen wide column">
-            {{> Template.dynamic template=main}}
-          </div>
-        </div>
-      </div>
-    </div>
+<template name="splitContent">
+  {{#mainLayout this}}
+  <div class="four wide column">
+    {{> Template.dynamic template=left}}
   </div>
-  {{> footer}}
+  <div class="twelve wide column">
+    {{> Template.dynamic template=main}}
+  </div>
+  {{/mainLayout}}
+</template>
+
+<template name="fullContent">
+  {{#mainLayout this}}
+  <div class="sixteen wide column">
+    {{> Template.dynamic template=main}}
+  </div>
+  {{/mainLayout}}
 </template>
