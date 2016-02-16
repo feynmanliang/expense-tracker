@@ -5,9 +5,26 @@ Template.expenseList.events({
   },
 });
 
+Template.expenseList.onCreated(function() {
+  this.subscribe('Expenses');
+});
+
+
+Template.expenseList.helpers({
+  tableSettings: () => {
+    return {
+      collection: Expenses,
+      rowsPerPage: 25,
+      showFilter: true,
+      fields: ['timestamp', 'amount', 'description', 'comment'],
+      class: "ui celled table",
+    };
+  }
+});
+
 Template.createExpenseForm.helpers({
   now: () => moment().toDate(),
-  userId: () => Meteor.userId()
+  userId: () => Meteor.userId(),
 })
 
 Template.createExpenseForm.events({

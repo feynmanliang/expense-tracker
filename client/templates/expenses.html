@@ -2,7 +2,7 @@
   <div class="ui left floated small primary labeled icon button create">
     <i class="user icon"></i> Add Expense
   </div>
-  {{> tabular table=TabularTables.Expenses class="ui celled table"}}
+  {{> reactiveTable settings=tableSettings}}
 </template>
 
 <template name="createExpenseForm">
