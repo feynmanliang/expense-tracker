@@ -1,3 +1,4 @@
+* Hide user controls that arent available (e.g. others modifying roles, deleting users)
 * Denormalize ownerName onto expense to allow sorting
 * All users can edit password
 * Admins can create users
