@@ -5,6 +5,7 @@ describe("Expenses", () => {
     amount: 1.01,
     comment: "This is a comment",
     ownerId: Random.id(),
+    ownerName: "randomName"
   };
 
   describe("validation", () => {
@@ -43,6 +44,7 @@ describe("Expenses", () => {
       description: "This is valid",
       amount: 1.01,
       ownerId: Random.id(),
+      ownerName: "randomName"
     };
 
     describe("create", () => {
