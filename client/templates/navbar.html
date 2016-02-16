@@ -1,6 +1,6 @@
 <template name="navbar">
   <div class="navbar">
-    <div class="ui left fixed vertical inverted sidebar visible menu" style="width: 175px">
+    <div class="ui left fixed vertical inverted sidebar visible menu" style="width: 175px; min-height: 1000px;">
       <div class="item">
         <a class="ui mini logo icon image" href="/">
           <img src="/images/ET.png">
@@ -26,7 +26,6 @@
       <a class="item logout" href="/logout">
         <b>Logout</b>
       </a>
-      </div>
       {{else}}
       <a class="item" href="/">
         <b>Login</b>

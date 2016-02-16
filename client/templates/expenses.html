@@ -1,26 +1,36 @@
 <template name="expenseList">
-  <div class="ui create primary button">Create an Expense</div>
-  {{> tabular table=TabularTables.Expenses class="table table-striped table-bordered table-condensed"}}
+  <div class="ui left floated small primary labeled icon button create">
+    <i class="user icon"></i> Add Expense
+  </div>
+  {{> tabular table=TabularTables.Expenses class="ui celled table"}}
 </template>
 
 <template name="createExpenseForm">
   {{#autoForm
+    template="plain" class="ui form"
     collection="Expenses"
     id="createExpenseForm"
     type="method"
     meteormethod="createExpense"}}
     <fieldset>
       <legend>Add an Expense</legend>
-      {{> afQuickField name='timestamp' type="datetime-local" value=now}}
-      {{> afQuickField name='description' rows=2 placeholder="Enter a description"}}
-      {{> afQuickField name='amount' placeholder="Enter an amount (up to two decimal places)"}}
-      {{> afQuickField name='comment' rows=2 placeholder="Enter a comment (optional)"}}
+      {{> afQuickField
+        name='amount' placeholder="Enter an amount (up to two decimal places)"
+        formgroup-class="field"}}
+      {{> afQuickField
+        name='description' rows=2 placeholder="Enter a description"
+        formgroup-class="field"}}
+      {{> afQuickField
+        name='comment' rows=2 placeholder="Enter a comment (optional)"
+        formgroup-class="field"}}
+
+      {{> afQuickField name='timestamp' type="hidden" value=now}}
       {{> afQuickField name='ownerId' type="hidden" value=userId}}
     </fieldset>
     <div class="ui buttons">
       <button type="submit" class="ui positive button">Save</button>
       <div class="or"></div>
-      <button type="cancel" class="ui button">Cancel</button>
+      <button type="cancel" class="ui button cancel">Cancel</button>
     </div>
   {{/autoForm}}
 </template>
