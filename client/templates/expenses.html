@@ -1,10 +1,6 @@
 <template name="expenseList">
-  <div class="row margin-top-10">
-    <button type="button" class="btn btn-primary create">Create an Expense</button>
-  </div>
-  <div class="row margin-top-05">
-    {{> tabular table=TabularTables.Expenses class="table table-striped table-bordered table-condensed"}}
-  </div>
+  <div class="ui create primary button">Create an Expense</div>
+  {{> tabular table=TabularTables.Expenses class="table table-striped table-bordered table-condensed"}}
 </template>
 
 <template name="createExpenseForm">
@@ -21,13 +17,16 @@
       {{> afQuickField name='comment' rows=2 placeholder="Enter a comment (optional)"}}
       {{> afQuickField name='ownerId' type="hidden" value=userId}}
     </fieldset>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="cancel" class="btn cancel">Close</button>
+    <div class="ui buttons">
+      <button type="submit" class="ui positive button">Save</button>
+      <div class="or"></div>
+      <button type="cancel" class="ui button">Cancel</button>
+    </div>
   {{/autoForm}}
 </template>
 
 <template name="updateExpenseCell">
-  <button type="button" class="btn btn-xs update">Update</button>
+  <button type="button" class="ui button">Edit</button>
 </template>
 
 <template name="updateExpenseForm">
@@ -44,12 +43,15 @@
       {{> afQuickField name='amount'}}
       {{> afQuickField name='comment' rows=2}}
     </fieldset>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="cancel" class="btn cancel">Close</button>
+    <div class="ui buttons">
+      <button type="submit" class="ui positive button update">Save</button>
+      <div class="or"></div>
+      <button type="cancel" class="ui button cancel">Cancel</button>
+    </div>
   {{/autoForm}}
 </template>
 
 <template name="deleteExpenseCell">
-  <button type="button" class="btn btn-xs btn-danger delete">Delete</button>
+  <button type="button" class="ui negative button delete">x</button>
 </template>
 

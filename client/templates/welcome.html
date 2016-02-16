@@ -1,10 +1,10 @@
 <template name="welcome">
-  <div class="jumbotron">
-    {{#if currentUser}}
-      <h1>Welcome back, {{currentUser.username}}.</h1>
-    {{else}}
-      <h1>Welcome.</h1>
-      <p>Please login in to continue.</p>
-    {{/if}}
-  </div>
+  {{#if currentUser}}
+  <h3 class="ui header">Welcome back, {{currentUser.username}}.</h3>
+  {{> atForm}}
+  {{else}}
+  <h3 class="ui header">Welcome.</h3>
+  <p>Please login in to continue.</p>
+  {{> atForm}}
+  {{/if}}
 </template>

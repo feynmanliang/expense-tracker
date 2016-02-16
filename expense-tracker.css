@@ -1,7 +1,37 @@
 /* CSS declarations go here */
-.margin-top-05 { margin-top: 0.5em; }
-.margin-top-10 { margin-top: 1.0em; }
-.margin-top-15 { margin-top: 1.5em; }
-.margin-top-20 { margin-top: 2.0em; }
-.margin-top-25 { margin-top: 2.5em; }
-.margin-top-30 { margin-top: 3.0em; }
+
+.full.height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.navbar {
+  position: relative;
+  z-index: 1;
+  background-color: #1b1c1d;
+  width: 250px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.navbar .ui.menu {
+  border-radius: 0;
+  border-width: 0 1px 0 0;
+  box-shadow: none;
+  margin: 0;
+  width: inherit;
+  overflow: hidden;
+  will-change: transform;
+}
+.article {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  min-width: 0px;
+}

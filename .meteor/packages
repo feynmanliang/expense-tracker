@@ -30,10 +30,11 @@ aldeed:tabular
 accounts-password
 alanning:roles
 dburles:collection-helpers
-twbs:bootstrap
-ian:accounts-ui-bootstrap-3
 random
 jquery
 okgrow:promise
 reywood:publish-composite
 meteorhacks:unblock
+semantic:ui
+flemay:less-autoprefixer
+useraccounts:semantic-ui

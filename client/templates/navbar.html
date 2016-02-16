@@ -1,0 +1,37 @@
+<template name="navbar">
+  <div class="navbar">
+    <div class="ui left fixed vertical inverted sidebar visible menu" style="width: 175px">
+      <div class="item">
+        <a class="ui mini logo icon image" href="/">
+          <img src="/images/ET.png">
+        </a>
+        <a href="/">
+          <b>Expense Tracker</b>
+        </a>
+      </div>
+      {{#if currentUser}}
+      <div class="item">
+        <div class="menu">
+          <a class="item" href="/expense">
+            Expenses
+          </a>
+          <a class="item" href="/report">
+            Weekly Report
+          </a>
+          <a class="item" href="/user">
+            Manage Users
+          </a>
+        </div>
+      </div>
+      <a class="item logout" href="/logout">
+        <b>Logout</b>
+      </a>
+      </div>
+      {{else}}
+      <a class="item" href="/">
+        <b>Login</b>
+      </a>
+      {{/if}}
+    </div>
+  </div>
+</template>
