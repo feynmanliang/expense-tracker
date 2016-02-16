@@ -1,9 +1,10 @@
-<template name="userList">
+<template name="userTable">
   {{> reactiveTable settings=tableSettings}}
 </template>
 
-<template name="updateUserCell">
-  <button type="button" class="btn btn-xs update">Update</button>
+<template name="userTableControls">
+  <button type="button" class="ui button edit">Edit</button>
+  <button type="button" class="ui negative button delete">x</button>
 </template>
 
 <template name="updateUserForm">
@@ -26,8 +27,4 @@
     <button type="submit" class="btn btn-primary">Update</button>
     <button type="cancel" class="btn cancel">Close</button>
   {{/autoForm}}
-</template>
-
-<template name="deleteUserCell">
-  <button type="button" class="btn btn-xs btn-danger delete">Delete</button>
 </template>

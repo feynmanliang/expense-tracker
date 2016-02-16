@@ -1,7 +1,7 @@
-Template.userList.onCreated(function () {
+Template.userTable.onCreated(function () {
   this.subscribe("Users")
 })
-Template.userList.helpers({
+Template.userTable.helpers({
   tableSettings: function () {
     return {
       collection: Meteor.users,
@@ -11,11 +11,21 @@ Template.userList.helpers({
       fields: [
         { key: 'username', label: 'Username' },
         { key: 'roles', label: 'Roles' },
+        { key: 'tableControls', label: '', tmpl: Template.userTableControls },
       ],
-      class: "ui celled table",
+      class: "ui table",
     };
   }
 });
+Template.userTableControls.events({
+  'click .edit': function () {
+    FlowRouter.go('/user/' + this._id);
+  },
+  'click .delete': function () {
+    Meteor.call('deleteUser', this._id);
+  }
+});
+
 
 Template.updateUserForm.onCreated(function () {
   this.subscribe("Users")
@@ -38,16 +48,3 @@ Template.updateUserForm.events({
     FlowRouter.go('/user');
   }
 });
-
-Template.updateUserCell.events({
-  'click .update': function () {
-    FlowRouter.go('/user/' + this._id);
-  }
-});
-
-Template.deleteUserCell.events({
-  'click .delete': function () {
-    Meteor.call('deleteUser', this._id);
-  }
-});
-
