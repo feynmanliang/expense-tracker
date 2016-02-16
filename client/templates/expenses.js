@@ -17,12 +17,16 @@ Template.expenseTable.helpers({
       fields: [
         { key: 'ownerName', label: 'Owner' },
         { key: 'timestamp', label: 'Date/Time' },
-        { key: 'amount', label: 'Amount' },
+        {
+          key: 'amount',
+          label: 'Amount',
+          fn: (value, object, key) => value.toFixed(2),
+        },
         { key: 'description', label: 'Description' },
         { key: 'comment', label: 'Comment' },
         { key: 'tableControls', label: '', tmpl: Template.expenseTableControls },
       ],
-      class: "ui celled table",
+      class: "ui table",
     };
   }
 });

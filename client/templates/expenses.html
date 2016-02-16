@@ -1,13 +1,15 @@
 <template name="expenseTable">
   <div class="ui left floated small primary labeled icon button create">
-    <i class="user icon"></i> Add Expense
+    <i class="plus icon"></i> Add Expense
   </div>
   {{> reactiveTable settings=tableSettings}}
 </template>
 
 <template name="expenseTableControls">
-  <button type="button" class="ui button edit">Edit</button>
-  <button type="button" class="ui negative button delete">x</button>
+  <div class="ui small basic icon buttons">
+    <button class="ui button edit"><i class="edit icon"></i></button>
+    <button class="ui negative button delete"><i class="remove icon"></i></button>
+  </div>
 </template>
 
 <template name="createExpenseForm">
@@ -32,17 +34,18 @@
       {{> afQuickField name='timestamp' type="hidden" value=now}}
       {{> afQuickField name='ownerId' type="hidden" value=userId}}
       {{> afQuickField name='ownerName' type="hidden" value=userName}}
+      <div class="ui buttons">
+        <button type="submit" class="ui positive button">Save</button>
+        <div class="or"></div>
+        <button type="cancel" class="ui button cancel">Cancel</button>
+      </div>
     </fieldset>
-    <div class="ui buttons">
-      <button type="submit" class="ui positive button">Save</button>
-      <div class="or"></div>
-      <button type="cancel" class="ui button cancel">Cancel</button>
-    </div>
   {{/autoForm}}
 </template>
 
 <template name="updateExpenseForm">
   {{#autoForm
+    template="plain" class="ui form"
     collection="Expenses"
     doc=expenseData
     id="updateExpenseForm"
@@ -50,15 +53,20 @@
     meteormethod="updateExpense"}}
     <fieldset>
       <legend>Update an Expense</legend>
-      {{> afQuickField name='timestamp' type="datetime-local"}}
-      {{> afQuickField name='description' rows=2}}
-      {{> afQuickField name='amount'}}
-      {{> afQuickField name='comment' rows=2}}
+      {{> afQuickField
+        name='amount'
+        formgroup-class="field"}}
+      {{> afQuickField
+        name='description' rows=2
+        formgroup-class="field"}}
+      {{> afQuickField
+        name='comment' rows=2
+        formgroup-class="field"}}
+        <div class="ui buttons">
+          <button type="submit" class="ui positive button update">Save</button>
+          <div class="or"></div>
+          <button type="cancel" class="ui button cancel">Cancel</button>
+        </div>
     </fieldset>
-    <div class="ui buttons">
-      <button type="submit" class="ui positive button update">Save</button>
-      <div class="or"></div>
-      <button type="cancel" class="ui button cancel">Cancel</button>
-    </div>
   {{/autoForm}}
 </template>

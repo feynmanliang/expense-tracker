@@ -12,10 +12,18 @@ Template.report.helpers({
       fields: [
         { key: 'year', label: 'Year' },
         { key: 'week', label: 'Week' },
-        { key: 'total', label: 'Total Over Week' },
-        { key: 'avg', label: 'Average Per Day' },
+        {
+          key: 'total',
+          label: 'Total Over Week',
+          fn: (value, object, key) => value.toFixed(2),
+        },
+        {
+          key: 'avg',
+          label: 'Average Per Day',
+          fn: (value, object, key) => value.toFixed(2),
+        },
       ],
-      class: "ui celled table",
+      class: "ui table",
     };
   }
 });
